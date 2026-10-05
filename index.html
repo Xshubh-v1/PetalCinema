@@ -97,7 +97,85 @@ svg.ck{width:min(72vw,280px);height:auto;margin:4px 0 2px;filter:drop-shadow(0 1
 #gt.show{animation:gt 1.5s ease-out}
 @keyframes gt{0%{opacity:0;transform:scale(.7);letter-spacing:.3em}25%{opacity:1;transform:scale(1);letter-spacing:.02em}80%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important}.rv{opacity:1!important;transform:none!important;filter:none!important}.on .w>span{transform:none!important}}
-</style></head><body>
+</style><style id="lk-css">
+body.lk-on>*:not(#lk):not(script){visibility:hidden}
+#lk{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:calc(24px + env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px));text-align:center;overflow:auto;color:#f5efe3;font:500 17px/1.5 Manrope,system-ui,sans-serif;background:radial-gradient(circle 380px at 50% 26%,#dcc38f2e,transparent 70%),radial-gradient(ellipse at 50% 125%,#0d3a2b,transparent 65%),#06080c;transition:opacity .9s ease,transform .9s ease,visibility 0s linear .9s}
+#lk.out{opacity:0;transform:scale(1.06);visibility:hidden;pointer-events:none}
+#lk svg.lk-pitch{position:absolute;inset:0;width:100%;height:100%;opacity:.3;pointer-events:none}
+#lk svg.lk-pitch *{fill:none;stroke:#dcc38f;stroke-width:1.2;stroke-dasharray:1200;stroke-dashoffset:1200;animation:lkdw 4s ease forwards}
+@keyframes lkdw{to{stroke-dashoffset:0}}
+.lk-pad{position:relative;width:92px;height:108px;margin-bottom:8px;animation:lkf 3.6s ease-in-out infinite}
+.lk-pad:before{content:"";position:absolute;inset:-26px;border-radius:50%;background:radial-gradient(circle,#dcc38f38,transparent 66%);animation:lkp 3.6s ease-in-out infinite}
+.lk-pad svg{position:relative;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 26px #000b)}
+.lk-shk{transform-origin:56px 40px;transition:transform .9s cubic-bezier(.2,.9,.2,1.25)}
+#lk.open .lk-shk{transform:translateY(-12px) rotate(-32deg)}
+@keyframes lkf{50%{transform:translateY(-6px)}}
+@keyframes lkp{50%{transform:scale(1.12);opacity:.7}}
+.lk-h{position:relative;margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(40px,12.5vw,64px);line-height:1.02;text-wrap:balance}
+.lk-g{background:linear-gradient(100deg,#a8884a,#f5e4b5 40%,#dcc38f 55%,#a8884a);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:lksh 5s linear infinite}
+@keyframes lksh{to{background-position:-220% 0}}
+.lk-p{position:relative;margin:0;color:#9fada5;font-size:16px;max-width:340px}
+.lk-row{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:min(100%,420px);margin:18px 0 8px}
+.lk-c{padding:16px 4px 12px;border:1px solid #dcc38f66;border-radius:18px;background:linear-gradient(170deg,#ffffff14,#ffffff05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 18px 36px #0008}
+.lk-n{display:block;font:italic 600 clamp(34px,10.5vw,50px)/1 'Cormorant Garamond',Georgia,serif;font-variant-numeric:tabular-nums}
+.lk-c small{display:block;margin-top:6px;color:#9fada5;font-size:13px}
+.lk-d{position:relative;margin:2px 0 0;padding:8px 18px;border:1px solid #dcc38f66;border-radius:999px;background:#0008;color:#dcc38f;font-size:15px;font-weight:700}
+#lk-msg{position:relative;margin:6px 0 0;color:#9fada5;font-size:15px;min-height:24px}
+@media(prefers-reduced-motion:reduce){#lk,#lk *,#lk .lk-pad:before{animation:none!important;transition:none!important}#lk svg.lk-pitch *{stroke-dashoffset:0}}
+</style></head><body class="lk-on">
+<div id="lk" role="dialog" aria-live="polite" aria-label="Birthday card locked">
+<svg class="lk-pitch" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="200" cy="400" r="110"/><circle cx="200" cy="400" r="4"/><path d="M20 400H380M20 40H380V760H20Z"/></svg>
+<div class="lk-pad"><svg viewBox="0 0 80 96" aria-hidden="true"><defs><linearGradient id="lkGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8884a"/><stop offset=".35" stop-color="#f5e4b5"/><stop offset=".6" stop-color="#dcc38f"/><stop offset="1" stop-color="#9b722f"/></linearGradient></defs>
+<path class="lk-shk" d="M24 42V28a16 16 0 0 1 32 0V42" fill="none" stroke="url(#lkGold)" stroke-width="7" stroke-linecap="round"/>
+<rect x="10" y="40" width="60" height="48" rx="12" fill="url(#lkGold)"/>
+<rect x="10" y="40" width="60" height="48" rx="12" fill="none" stroke="#fff8" stroke-width="1"/>
+<circle cx="40" cy="60" r="6" fill="#1c1405"/><rect x="38" y="62" width="4" height="13" rx="2" fill="#1c1405"/></svg></div>
+<h1 class="lk-h lk-g" id="lk-t">Gate abhi band hain</h1>
+<p class="lk-p">Avan &amp; Uzair, ye surprise sirf birthday par khulega. Tab tak countdown dekho.</p>
+<div class="lk-row"><div class="lk-c"><span class="lk-n lk-g" id="lk-d">--</span><small>Din</small></div><div class="lk-c"><span class="lk-n lk-g" id="lk-h">--</span><small>Ghante</small></div><div class="lk-c"><span class="lk-n lk-g" id="lk-m">--</span><small>Minute</small></div><div class="lk-c"><span class="lk-n lk-g" id="lk-s">--</span><small>Second</small></div></div>
+<div class="lk-d">14 October 2026, raat 12:00 baje</div>
+<p id="lk-msg">Time check ho raha hai…</p>
+</div>
+<script>
+(function(){
+var UNLOCK=new Date('2026-10-14T00:00:00+05:30').getTime();
+var PREVIEW_KEY='avanuzair';
+function openNow(){document.body.classList.remove('lk-on');var x=document.getElementById('lk');if(x)x.remove()}
+try{
+var lk=document.getElementById('lk'),body=document.body,tm,released=false;
+var base=Date.now(),p0=performance.now();
+function now(){return base+(performance.now()-p0)}
+function $i(i){return document.getElementById(i)}
+function pad(n){return n<10?'0'+n:''+n}
+var preview=false;
+try{preview=new URLSearchParams(location.search).get('preview')===PREVIEW_KEY}catch(e){}
+if(preview){openNow();return}
+function release(){
+if(released)return;released=true;clearInterval(tm);
+body.classList.remove('lk-on');lk.classList.add('open');
+$i('lk-t').textContent='Gate khul gaye!';$i('lk-msg').textContent='Match shuru hone wala hai…';
+setTimeout(function(){lk.classList.add('out');setTimeout(function(){lk.remove();try{burst(innerWidth/2,innerHeight*.4,140)}catch(e){}},950)},1500)}
+function tick(){
+var diff=UNLOCK-now();
+if(diff<=0){$i('lk-d').textContent=$i('lk-h').textContent=$i('lk-m').textContent=$i('lk-s').textContent='00';release();return}
+var s=Math.floor(diff/1000);
+$i('lk-d').textContent=pad(Math.floor(s/86400));
+$i('lk-h').textContent=pad(Math.floor(s%86400/3600));
+$i('lk-m').textContent=pad(Math.floor(s%3600/60));
+$i('lk-s').textContent=pad(s%60)}
+function sync(){return new Promise(function(res){
+var fin=false,ac=window.AbortController?new AbortController():null;
+function done(ok){if(fin)return;fin=true;clearTimeout(t);res(ok)}
+var t=setTimeout(function(){try{if(ac)ac.abort()}catch(e){}done(false)},4000);
+try{fetch(location.href.split('#')[0],{method:'HEAD',cache:'no-store',signal:ac?ac.signal:undefined}).then(function(r){
+var d=r.headers.get('date'),a=parseInt(r.headers.get('age')||'0',10)||0,sv=d?Date.parse(d):NaN;
+if(!isNaN(sv)){base=sv+a*1000;p0=performance.now();done(true)}else done(false)}).catch(function(){done(false)})}catch(e){done(false)}})}
+sync().then(function(){
+if(!released){$i('lk-msg').textContent='Tab tak thoda sabr, surprise worth it hai 😉';tick();if(!released)tm=setInterval(tick,1000)}})
+}catch(e){if(Date.now()>=UNLOCK)openNow()}
+})();
+</script>
+
 <canvas id="cf"></canvas><button id="mt" aria-label="music">🔊</button><div id="gt" class="serif gold">Goal.</div>
 
 <section class="s on" id="s0"><svg class="pl" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice"><circle cx="200" cy="400" r="110"/><circle cx="200" cy="400" r="4"/><path d="M20 400H380M20 40H380V760H20Z"/></svg>
