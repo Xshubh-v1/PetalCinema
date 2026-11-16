@@ -389,9 +389,11 @@ html.earth-on #particle-canvas{opacity:0!important}
 </style>
 
 <style id="landing-preview-overrides">
-  html, body { height: auto !important; min-height: 100%; overflow-x: hidden !important; overflow-y: auto !important; }
-  #intro-world { display: none !important; }
-  #landing { display: block !important; }
+  /* Preview mode: fully release the original intro's page scroll lock. */
+  html { display:block !important; height:auto !important; min-height:100% !important; overflow-x:hidden !important; overflow-y:scroll !important; position:static !important; }
+  body { display:block !important; height:auto !important; min-height:100% !important; overflow:visible !important; position:static !important; touch-action:pan-y !important; }
+  #intro-world, #enter-gate, #veil, #lblack, #ready, #tap { display:none !important; pointer-events:none !important; }
+  #landing { display:block !important; position:relative !important; width:100%; min-height:100vh; overflow:visible !important; }
 </style>
 
 
@@ -2631,16 +2633,29 @@ uniform vec2 uTexel;
 </script>
 
 <script id="landing-preview-start">
-  window.addEventListener('load', function () {
-    var introWorld = document.getElementById('intro-world');
-    var landing = document.getElementById('landing');
-    if (introWorld) introWorld.style.display = 'none';
-    if (landing) landing.style.display = 'block';
-    document.documentElement.classList.add('scroll');
-    if (window.LANDING && typeof window.LANDING.start === 'function') {
-      window.LANDING.start();
+  (function () {
+    function unlockLandingPreview() {
+      var introWorld = document.getElementById('intro-world');
+      var landing = document.getElementById('landing');
+      if (introWorld) introWorld.style.setProperty('display', 'none', 'important');
+      if (landing) landing.style.setProperty('display', 'block', 'important');
+      /* Clear any inline locks left by the original intro flow. */
+      document.documentElement.style.setProperty('height', 'auto', 'important');
+      document.documentElement.style.setProperty('overflow-x', 'hidden', 'important');
+      document.documentElement.style.setProperty('overflow-y', 'scroll', 'important');
+      document.body.style.setProperty('height', 'auto', 'important');
+      document.body.style.setProperty('overflow', 'visible', 'important');
+      document.body.style.setProperty('position', 'static', 'important');
+      document.documentElement.classList.add('scroll');
+      if (!window.__landingPreviewStarted && window.LANDING && typeof window.LANDING.start === 'function') {
+        window.__landingPreviewStarted = true;
+        window.LANDING.start();
+      }
     }
-  });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', unlockLandingPreview, { once:true });
+    window.addEventListener('load', unlockLandingPreview, { once:true });
+    unlockLandingPreview();
+  })();
 </script>
 
 </body>
