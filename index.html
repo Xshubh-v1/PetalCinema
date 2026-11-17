@@ -42,6 +42,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .shell{width:min(1180px,calc(100% - 32px));margin:0 auto}
 .nav{position:sticky;top:max(12px,env(safe-area-inset-top));z-index:10;margin-top:12px;display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:999px}
 .brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font:400 23px/1 var(--serif);letter-spacing:-.01em}
+.bn{word-spacing:-.05em}
 .brand em{font-style:normal;color:var(--rose)}
 .mark{width:36px;height:36px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#fff,#f8dce9);box-shadow:0 6px 16px rgba(190,138,167,.2)}
 .pill{padding:8px 14px;border-radius:999px;font-size:12px;color:var(--ink2);background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.9)}
@@ -158,7 +159,7 @@ footer span{color:#d99cb7;font-size:13px}
   <header class="nav glass">
     <a class="brand" href="#top" aria-label="Petal Cinema home">
       <span class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 12C6.8 10.2 7.3 4.4 11.8 3.3C15.4 5.2 15.2 9.4 12 12Z" fill="#E8AFC8"/><path d="M12 12C10.1 6.8 14.6 3.2 18 5.8C18.5 9.7 15.4 12.5 12 12Z" fill="#D7C8EF"/><path d="M12 12C17.1 9.4 20.7 13.5 18.7 17.1C15.1 18.6 12.2 15.9 12 12Z" fill="#BFE4E4"/><path d="M12 12C15.4 16.5 12.5 21 8.5 19.6C6.3 16.4 8.4 12.8 12 12Z" fill="#F2DCA9"/><path d="M12 12C7.5 15.2 3.3 12.4 4.6 8.5C7.8 6.3 11.4 8.4 12 12Z" fill="#F0C9DB"/><circle cx="12" cy="12" r="2.1" fill="#FFF8E8"/></svg></span>
-      petal <em>cinema</em>
+      <span class="bn">petal <em>cinema</em></span>
     </a>
     <div class="pill">✧ a little something for you</div>
   </header>
@@ -291,6 +292,16 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'&&active<films.length-1) showFilm(active+1);
   if(e.key==='ArrowLeft'&&active>0) showFilm(active-1);
 });
+
+// Fullscreen on the video -> rotate to landscape (Android Chrome etc.); unlock on exit
+function onFullscreen(){
+  const fs=document.fullscreenElement||document.webkitFullscreenElement, o=screen.orientation;
+  if(!o) return;
+  if(fs&&player.classList.contains('open')){ if(o.lock) o.lock('landscape').catch(()=>{}); }
+  else if(o.unlock){ try{o.unlock()}catch(e){} }
+}
+document.addEventListener('fullscreenchange',onFullscreen);
+document.addEventListener('webkitfullscreenchange',onFullscreen);
 
 // Glass sheen + soft tilt (mouse only)
 const tilt=matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
