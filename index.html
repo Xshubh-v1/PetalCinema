@@ -176,19 +176,50 @@
     .rotate-hint[hidden] { display: none; }
     .rotate-hint svg { width: 25px; height: 25px; flex: 0 0 auto; color: #b47f9e; }
 
-    /* In browsers that support the Fullscreen API, turn the overlay into a simple cinema view. */
+    /* True edge-to-edge mobile cinema: no white modal, no inner padding, no letterboxed panel. */
+    .player-overlay.mobile-cinema,
     .player-overlay:fullscreen {
-      display: block; overflow: hidden; padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
-      background: rgba(31, 27, 42, .97); backdrop-filter: none; -webkit-backdrop-filter: none;
+      display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
+      overflow: hidden; padding: 0; margin: 0; border: 0; border-radius: 0;
+      background: #000; backdrop-filter: none; -webkit-backdrop-filter: none;
     }
+    .player-overlay.mobile-cinema .player-panel,
     .player-overlay:fullscreen .player-panel {
-      width: 100%; height: 100%; max-height: none; display: flex; flex-direction: column; overflow: hidden;
-      padding: 10px; border-radius: 17px; background: rgba(250,248,253,.96);
+      position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; max-width: none;
+      display: block; overflow: hidden; padding: 0; margin: 0; border: 0; border-radius: 0;
+      background: #000; box-shadow: none; transform: none; transition: none;
     }
-    .player-overlay:fullscreen .player-top { flex: 0 0 auto; padding: 1px 4px 9px; }
-    .player-overlay:fullscreen .video-frame { flex: 1 1 auto; min-height: 0; width: 100%; aspect-ratio: auto; }
+    .player-overlay.mobile-cinema .player-top,
+    .player-overlay:fullscreen .player-top {
+      position: absolute; z-index: 5; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px);
+      display: block; padding: 12px; pointer-events: none;
+    }
+    .player-overlay.mobile-cinema .player-brand,
+    .player-overlay:fullscreen .player-brand { display: none; }
+    .player-overlay.mobile-cinema .close-btn,
+    .player-overlay:fullscreen .close-btn {
+      width: 44px; height: 44px; color: #fff; font-size: 21px; border: 1px solid rgba(255,255,255,.38);
+      background: rgba(25,22,34,.42); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.22); pointer-events: auto;
+    }
+    .player-overlay.mobile-cinema .video-frame,
+    .player-overlay:fullscreen .video-frame {
+      position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; aspect-ratio: auto;
+      overflow: hidden; border-radius: 0; background: #000; box-shadow: none;
+    }
+    .player-overlay.mobile-cinema .video-frame iframe,
+    .player-overlay:fullscreen .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .player-overlay.mobile-cinema .player-details,
+    .player-overlay.mobile-cinema .quality-note,
     .player-overlay:fullscreen .player-details,
     .player-overlay:fullscreen .quality-note { display: none; }
+    .player-overlay.mobile-cinema .rotate-hint {
+      position: absolute; z-index: 6; top: max(12px, env(safe-area-inset-top)); left: 12px; right: 68px;
+      margin: 0; width: max-content; max-width: calc(100% - 92px); background: rgba(255,255,255,.9);
+    }
+    @media (orientation: landscape) {
+      .player-overlay.mobile-cinema .rotate-hint { display: none !important; }
+    }
 
     @media (orientation: landscape) and (max-height: 600px) {
       .player-overlay { padding: 7px; }
@@ -471,6 +502,7 @@
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
       frame.appendChild(iframe);
       overlay.classList.add('open');
+      if (isPhoneLike()) overlay.classList.add('mobile-cinema');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       document.getElementById('closePlayer').focus();
@@ -479,7 +511,7 @@
     }
 
     function closeFilm() {
-      overlay.classList.remove('open');
+      overlay.classList.remove('open', 'mobile-cinema');
       overlay.setAttribute('aria-hidden', 'true');
       frame.innerHTML = ''; // Removing the iframe stops playback.
       document.body.style.overflow = '';
