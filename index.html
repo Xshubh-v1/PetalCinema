@@ -208,11 +208,7 @@
       overflow: hidden; border-radius: 0; background: #000; box-shadow: none;
     }
     .player-overlay.mobile-cinema .video-frame iframe,
-    .player-overlay:fullscreen .video-frame iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      /* Cover-style enlargement reduces YouTube's internal letterboxing on wide landscape screens. */
-      transform: scale(1.4); transform-origin: center center;
-    }
+    .player-overlay:fullscreen .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
     .player-overlay.mobile-cinema .player-details,
     .player-overlay.mobile-cinema .quality-note,
     .player-overlay:fullscreen .player-details,
@@ -391,7 +387,7 @@
           <rect x="10" y="5" width="12" height="21" rx="2.8" stroke="currentColor" stroke-width="1.7"/>
           <path d="M7 12.5a10 10 0 0 1 16.2-7.8M23.2 4.7l.4 4.4-4.3-.9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span><strong>Make it a little cinema.</strong> Turn your phone sideways for the best view.</span>
+        <span><strong>For the full cinema view.</strong> Tap the ⛶ fullscreen icon in YouTube’s controls, then turn your phone sideways if it does not rotate automatically.</span>
       </div>
       <div class="video-frame" id="videoFrame"></div>
       <div class="player-details">
@@ -501,17 +497,16 @@
       const iframe = document.createElement('iframe');
       iframe.title = `${film.title} — YouTube video player`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${film.id}?autoplay=1&rel=0&playsinline=1&controls=1`;
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen';
       iframe.allowFullscreen = true;
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
       frame.appendChild(iframe);
       overlay.classList.add('open');
-      if (isPhoneLike()) overlay.classList.add('mobile-cinema');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       document.getElementById('closePlayer').focus();
 
-      if (requestCinema) enterCinemaMode();
+      // Use YouTube's native fullscreen control; the site cannot trigger controls inside its cross-origin iframe.
     }
 
     function closeFilm() {
