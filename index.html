@@ -256,7 +256,6 @@ seg.style.setProperty('--n',films.length);
 seg.innerHTML='<i></i>'+films.map((f,i)=>`<button type="button" data-ch="${i}"><b>0${i+1}</b><span> · ${f.title}</span></button>`).join('');
 
 function showFilm(i){
-  const wasOpen=player.classList.contains('open');
   active=Math.max(0,Math.min(films.length-1,i)); const f=films[active];
   ptitle.textContent=f.title; pdesc.textContent=f.desc;
   chap.textContent=`CHAPTER 0${active+1} · NOW PLAYING`;
@@ -274,15 +273,10 @@ function showFilm(i){
   frame.appendChild(ifr);
   player.classList.add('open'); player.setAttribute('aria-hidden','false');
   app.inert=true; document.body.style.overflow='hidden'; closeBtn.focus();
-  // Phones/tablets: first tap opens straight into fullscreen; the landscape lock follows in onFullscreen()
-  const rf=player.requestFullscreen||player.webkitRequestFullscreen;
-  if(!wasOpen&&rf&&matchMedia('(pointer:coarse)').matches){ try{ Promise.resolve(rf.call(player)).catch(()=>{}); }catch(e){} }
 }
 function closeFilm(){
   player.classList.remove('open'); player.setAttribute('aria-hidden','true');
   frame.innerHTML=''; app.inert=false; document.body.style.overflow='';
-  const ef=document.exitFullscreen||document.webkitExitFullscreen;
-  if((document.fullscreenElement||document.webkitFullscreenElement)&&ef){ try{ Promise.resolve(ef.call(document)).catch(()=>{}); }catch(e){} }
   if(opener) opener.focus();
 }
 
