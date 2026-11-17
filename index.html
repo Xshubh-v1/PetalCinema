@@ -208,7 +208,11 @@
       overflow: hidden; border-radius: 0; background: #000; box-shadow: none;
     }
     .player-overlay.mobile-cinema .video-frame iframe,
-    .player-overlay:fullscreen .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .player-overlay:fullscreen .video-frame iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      /* Cover-style enlargement reduces YouTube's internal letterboxing on wide landscape screens. */
+      transform: scale(1.4); transform-origin: center center;
+    }
     .player-overlay.mobile-cinema .player-details,
     .player-overlay.mobile-cinema .quality-note,
     .player-overlay:fullscreen .player-details,
